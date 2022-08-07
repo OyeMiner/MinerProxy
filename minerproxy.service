@@ -1,0 +1,17 @@
+[Unit]
+Description=minerproxy Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Restart=on-failure
+RestartSec=2s
+ExecStart=/usr/bin/minerproxy -config /etc/minerproxy/config.yml
+ExecStop=/bin/kill -TERM $MAINPID
+WorkingDirectory=/etc/minerproxy
+LimitNOFILE=102400
+
+[Install]
+WantedBy=multi-user.target
